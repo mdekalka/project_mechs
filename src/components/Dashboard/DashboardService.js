@@ -1,8 +1,8 @@
 import React from 'react';
 
 import UserInfo from '../UnitInfo/UnitInfo';
-import Pilots from '../Pilots/Pilots';
-import Mechs from '../Mechs/Mechs';
+import Pilots from '../pilots/Pilots/Pilots';
+import Mechs from '../mechs/Mechs/Mechs';
 import UnitOrganization from '../UnitOrganization/UnitOrganization';
 
 export const dashboardNavigation = [

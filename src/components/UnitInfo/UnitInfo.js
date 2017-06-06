@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
     FormGroup,
     ControlLabel,
@@ -7,15 +9,15 @@ import {
     MenuItem
 } from "react-bootstrap";
 
-class UnitInfo extends Component {
-  static FACTIONS = [
-    {value : "lc", text : "Lyran Commonwealth"},
-    {value : "wd", text : "Wolf's Dragoons"}
-  ];
-  
-  state = {
-    unitName: '',
-    activeFaction: UnitInfo.FACTIONS[0]
+import UnitInfoDetails from '../UnitInfoDetails/UnitInfoDetails';
+
+import * as unitInfoActions from './actions';
+
+export class UnitInfo extends Component {
+  componentDidMount() {
+    this.props.actions.loadUnitInfo().then(() => {
+      // Note: info loaded, do some magic if you want to
+    });
   }
 
   onUnitNameChange = (e) => {
@@ -29,30 +31,24 @@ class UnitInfo extends Component {
   render() {
     return (
       <div>
-        <form>
-          <FormGroup>
-            <ControlLabel>Unit name</ControlLabel>
-            <FormControl
-              type="text"
-              value={this.state.value}
-              placeholder="Enter text"
-              onChange={this.onUnitNameChange}
-            />
-          </FormGroup>
-          <FormGroup>
-            <ControlLabel>Affiliation</ControlLabel>
-            <div>
-              <DropdownButton bsStyle="default" title={this.state.activeFaction.text} id="dropdown-factions" onSelect={this.onFactionsSelect}>
-                {UnitInfo.FACTIONS.map((faction, index) => 
-                  <MenuItem key={index} eventKey={faction}>{faction.text}</MenuItem>
-                )}
-              </DropdownButton>
-            </div>
-          </FormGroup>
-        </form>
+        <UnitInfoDetails details={this.props.unitInfo} onChange={this.onUnitNameChange} onSelect={this.onFactionsSelect} />
       </div>
     )
   }
 };
+
+const mapStateToProps = (state) => {
+    return {
+        unitInfo: state.unitInfo
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators(unitInfoActions, dispatch)
+    }
+};
+
+UnitInfo = connect(mapStateToProps, mapDispatchToProps)(UnitInfo);
 
 export default UnitInfo;

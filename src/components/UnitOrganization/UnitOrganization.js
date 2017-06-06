@@ -15,9 +15,9 @@ const unitList = [
   ]},
   {id: 3, name: 'Recon Lance', list: [
     {id: 1, name: 'Lt. John "Gentleman Johnny" Clavell - RFL-3N Rifleman'},
-    {id: 1, name: 'Piet Nichols - PXH-1K Phoenix Hawk'},
-    {id: 1, name: 'Simon Fraser - STG-3R Stinger'},
-    {id: 1, name: 'Mohammar Jahan - STG-3R Stinger'}
+    {id: 2, name: 'Piet Nichols - PXH-1K Phoenix Hawk'},
+    {id: 3, name: 'Simon Fraser - STG-3R Stinger'},
+    {id: 4, name: 'Mohammar Jahan - STG-3R Stinger'}
   ]}
 ];
 
@@ -38,14 +38,14 @@ class UnitOrganization extends Component {
     return (
       <div className="container-fluid">
         <div>{UnitOrganization.ORGANIZATION_HEADER}</div>
-        <ul class="list unit-list">
+        <ul className="list unit-list">
           {unitList.map(unitItem =>
-            <li>
+            <li key={unitItem.id}>
               <div>{unitItem.name}</div>
               {unitItem.list.length ?
-                <ul class="list team-list">
+                <ul className="list team-list">
                   {unitItem.list.map(unit =>
-                    <li>{unit.name}</li>
+                    <li key={unit.id}>{unit.name}</li>
                   )}
                 </ul>
                 : null

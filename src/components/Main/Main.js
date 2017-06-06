@@ -8,7 +8,6 @@ class Main extends Component {
   }
 
   onChange = (e) => {
-    console.log(this.node)
     this.setState({ value: e.target.value });
   }
 
