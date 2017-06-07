@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    DropdownButton,
-    MenuItem
-} from "react-bootstrap";
+
+import PilotsDetailsView from '../PilotDetailsView/PilotsDetailsView';
+import PilotDetailsEdit from '../PilotDetailsEdit/PilotDetailsEdit';
+
+import { EDIT_MODE, VIEW_MODE } from '../../../constants/constants';
 
 class PilotDetails extends Component {
   static propTypes = {
@@ -24,62 +22,27 @@ class PilotDetails extends Component {
     details: {}
   };
 
+  state = {
+    mode: VIEW_MODE
+  }
+
+  renderByMode(mode) {
+    switch (mode) {
+      case EDIT_MODE:
+        return <PilotDetailsEdit {...this.props} />
+
+      case VIEW_MODE:
+        return <PilotsDetailsView {...this.props.details} />
+
+      default:
+        return null;
+    }
+  }
+
   render() {
     const { ranks, mechs, details: { name, age, gunnery, piloting } } = this.props;
 
-    return (
-      <form>
-        <FormGroup>
-          <ControlLabel>Name</ControlLabel>
-          <FormControl
-            type="text"
-            value={name}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Rank</ControlLabel>
-          {}
-          <div>
-            <DropdownButton bsStyle="default" title={ranks[0].text} id="dropdown-ranks" >
-              {ranks.map((rank, index) => 
-                <MenuItem key={index} eventKey={rank}>{rank.text}</MenuItem>
-              )}
-            </DropdownButton>
-          </div>
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Age</ControlLabel>
-          <FormControl
-            type="text"
-            value={age}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Gunnery</ControlLabel>
-          <FormControl
-            type="text"
-            value={gunnery}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Piloting</ControlLabel>
-          <FormControl
-            type="text"
-            value={piloting}
-          />
-        </FormGroup>
-        <FormGroup>
-          <ControlLabel>Mech</ControlLabel>
-          <div>
-            <DropdownButton bsStyle="default" title={mechs[0].text} id="dropdown-mechs" >
-              {mechs.map((mech, index) => 
-                <MenuItem key={index} eventKey={mech}>{mech.text}</MenuItem>
-              )}
-            </DropdownButton>
-          </div>
-        </FormGroup>
-      </form>
-    )
+    return this.renderByMode(this.state.mode);
   }
 };
 

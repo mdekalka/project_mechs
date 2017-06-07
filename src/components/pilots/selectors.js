@@ -9,3 +9,5 @@ export const selectPilotList = createSelector(getPilotList, (pilotList) => pilot
 export const selectPilotById = createSelector([getPilotList, getActiveId], (pilotList, activeId) => {
   return pilotList.find(pilot => pilot.id === activeId);
 });
+
+// export const selectPilotsByFilter = createSelector(getPilotList)

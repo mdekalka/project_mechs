@@ -7,7 +7,7 @@ import {
     FormControl,
     DropdownButton,
     MenuItem
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 import UnitInfoDetails from '../UnitInfoDetails/UnitInfoDetails';
 

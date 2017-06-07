@@ -6,7 +6,7 @@ import {
     FormControl,
     DropdownButton,
     MenuItem
-} from "react-bootstrap";
+} from 'react-bootstrap';
 
 class UnitInfoDetails extends Component {
   static propTypes = {

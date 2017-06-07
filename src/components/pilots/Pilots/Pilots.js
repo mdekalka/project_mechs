@@ -4,9 +4,11 @@ import { bindActionCreators } from 'redux';
 
 import PilotList from '../PilotList/PilotList';
 import PilotDetails from '../PilotDetails/PilotDetails';
+import FilterInput from '../../FilterInput/FilterInput';
 
 import * as pilotsActions from '../actions';
 import { selectPilotList, selectPilotById } from '../selectors';
+import { filterBy } from '../service';
 
 export class Pilots extends Component {
   static PILOT_INFO = [
@@ -33,7 +35,8 @@ export class Pilots extends Component {
   ];
 
   state = {
-    activePilot: {}
+    activePilot: {},
+    query: ''
   }
 
   componentDidMount() {
@@ -46,12 +49,22 @@ export class Pilots extends Component {
     this.props.actions.setActiveId(id);
   }
 
+  onFilterChange = (event) => {
+    this.setState({ query: event.target.value });
+  }
+
   render() {
+    const filteredList = filterBy(this.props.pilots, 'name', this.state.query);
+
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8">
-            <PilotList selected={this.props.activeId} onSelect={this.selectPilot} headers={Pilots.PILOT_INFO} list={this.props.pilots} />
+            <FilterInput onChange={this.onFilterChange} placeholder={'Filter by name'} value={this.state.query} />
+            {filteredList.length ?
+              <PilotList selected={this.props.activeId} onSelect={this.selectPilot} headers={Pilots.PILOT_INFO} list={filteredList} />
+            : <div>No results based on filter query</div>
+            }
           </div>
           <div className="col-md-4">
             <div>Pilot details</div>

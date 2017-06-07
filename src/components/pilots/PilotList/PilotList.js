@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from "react-bootstrap";
+import { Table } from 'react-bootstrap';
+
+import './PilotList.css';
 
 class PilotList extends Component {
   static propTypes = {
@@ -19,7 +21,7 @@ class PilotList extends Component {
 
   render() {
     return (
-      <Table bordered hover>
+      <Table className="pilots-table" bordered hover>
         <thead>
           <tr>
             {this.props.headers.map((headerKey, index) => 
@@ -28,9 +30,9 @@ class PilotList extends Component {
           </tr>
         </thead>
         <tbody>
-          {/* Yeah, we could send all pilot info manually, but image we have only id*/}
+          {/* Yeah, we could send all pilot info manually, but imagine we have only id*/}
           {this.props.list.map(pilot =>
-            <tr className={this.props.selected === pilot.id ? 'table-active': ''} key={pilot.id} onClick={() => this.props.onSelect(pilot.id)}>
+            <tr className={this.props.selected === pilot.id ? 'active-row': ''} key={pilot.id} onClick={() => this.props.onSelect(pilot.id)}>
               <td>{pilot.id}</td>
               <td>{pilot.name}</td>
               <td>{pilot.rank}</td>
