@@ -6,7 +6,7 @@ export const pilots = [
     gunnery : 2,
     piloting : 2,
     age : 52,
-    mech : 1
+    mech : 'MAD-3R'
   },
   {
     id : 2,
@@ -15,7 +15,7 @@ export const pilots = [
     gunnery : 3,
     piloting : 4,
     age : 43,
-    mech : 2
+    mech : 'CRD-3R'
   },
   {
     id : 3,
@@ -24,7 +24,7 @@ export const pilots = [
     gunnery : 4,
     piloting : 5,
     age : 27,
-    mech : 3
+    mech : 'WSP-1A'
   },
   {
     id : 4,

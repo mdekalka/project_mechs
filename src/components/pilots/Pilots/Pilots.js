@@ -7,33 +7,10 @@ import PilotDetails from '../PilotDetails/PilotDetails';
 import FilterInput from '../../FilterInput/FilterInput';
 
 import * as pilotsActions from '../actions';
-import { selectPilotList, selectPilotById } from '../selectors';
+import { selectPilotList } from '../selectors';
 import { filterBy } from '../service';
 
 export class Pilots extends Component {
-  static PILOT_INFO = [
-    '#',
-    'Name',
-    'Rank',
-    'Age',
-    'Skills',
-    'Mech'
-  ];
-
-  static RANKS = [
-    {value: "Private", text : "Private"},
-    {value: "Corporal", text : "Corporal"},
-    {value: "Sergeant", text : "Sergeant"},
-    {value: "Lieutenant", text : "Lieutenant"},
-    {value: "Captain", text : "Captain"},
-    {value: "Major", text : "Major"},
-    {value: "Colonel", text : "Colonel"},
-  ];
-
-  static MECHS = [
-    {value : "WHM-6R", text : "Warhammer WHM-6R"}
-  ];
-
   state = {
     activePilot: {},
     query: ''
@@ -60,18 +37,20 @@ export class Pilots extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8">
-            <FilterInput onChange={this.onFilterChange} placeholder={'Filter by name'} value={this.state.query} />
+            <div className="row">
+              <div className="col-md-4">
+                <div className="form-row">
+                  <FilterInput customClass="block" onChange={this.onFilterChange} placeholder="Filter by name" value={this.state.query} />
+                </div>
+              </div>
+            </div>
             {filteredList.length ?
-              <PilotList selected={this.props.activeId} onSelect={this.selectPilot} headers={Pilots.PILOT_INFO} list={filteredList} />
-            : <div>No results based on filter query</div>
+                <PilotList selected={this.props.activeId} onSelect={this.selectPilot} list={filteredList} />
+              : <div>No results based on filter query</div>
             }
           </div>
           <div className="col-md-4">
-            <div>Pilot details</div>
-            {this.props.activePilot ?
-              <PilotDetails ranks={Pilots.RANKS} mechs={Pilots.MECHS} details={this.props.activePilot} />
-            : <div className="text-center">No pilot selected</div>
-            }
+            <PilotDetails />
           </div>
         </div>
       </div>
@@ -82,8 +61,7 @@ export class Pilots extends Component {
 const mapStateToProps = (state) => {
     return {
       activeId: state.pilotsInfo.activeID,
-      pilots: selectPilotList(state),
-      activePilot: selectPilotById(state)
+      pilots: selectPilotList(state)
     }
 };
 

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    DropdownButton,
-    MenuItem
-} from 'react-bootstrap';
 
 import UnitInfoDetails from '../UnitInfoDetails/UnitInfoDetails';
 

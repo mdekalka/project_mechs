@@ -1,0 +1,40 @@
+.icon-container {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background-color: #1B3B5E;
+  cursor: pointer;
+  transition: background-color .1s ease-in;
+}
+
+.icon-container:hover {
+  background-color: #3D5681;
+}
+
+.icon-container.accept {
+  background-color: #00ACC1;
+}
+
+.icon-container.cancel {
+  background-color: #F4511E;
+}
+
+.icon-container.normal {
+  background-color: #78909C;
+}
+
+.icon-container.warning {
+  background-color: #F9A825;
+}
+
+.icon-container > .fa {
+  color: #fff;
+}
+
+.icon-group .icon-container {
+  margin-right: 10px;
+}
+
+.icon-group .icon-container:last-child {
+  margin-right: 0px;
+}

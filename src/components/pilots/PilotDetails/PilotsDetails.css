@@ -1,0 +1,13 @@
+.pilots-view {
+}
+
+.pilots-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.pilots-header .icon-group {
+  flex-shrink: 0;
+  margin-left: auto;
+}

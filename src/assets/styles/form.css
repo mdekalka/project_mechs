@@ -1,0 +1,23 @@
+input[type="text"],
+input[type="password"] {
+  color: #afb1be;
+  min-width: 160px;
+  background-color: #2c3135;
+  border: 1px solid transparent;
+  padding: 4px 6px;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #56626b;
+}
+
+input[type="text"].block,
+input[type="password"].block {
+  width: 100%;
+}
+
+.form-row {
+  margin-bottom: 15px;
+}

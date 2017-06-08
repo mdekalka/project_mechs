@@ -7,24 +7,31 @@ import './PilotList.css';
 class PilotList extends Component {
   static propTypes = {
     selected: PropTypes.number,
-    headers: PropTypes.array,
     list: PropTypes.array,
     onSelect: PropTypes.func
   };
 
   static defaultProps = {
     selected: null,
-    header: [],
     list: [],
     onSelect: () => {}
   };
 
+  static PILOT_INFO = [
+    '#',
+    'Name',
+    'Rank',
+    'Age',
+    'Skills',
+    'Mech'
+  ];
+
   render() {
     return (
-      <Table className="pilots-table" bordered hover>
+      <table className="border hover center pointer pilots-table">
         <thead>
           <tr>
-            {this.props.headers.map((headerKey, index) => 
+            {PilotList.PILOT_INFO.map((headerKey, index) => 
               <th key={index}>{headerKey}</th>
             )}
           </tr>
@@ -42,7 +49,7 @@ class PilotList extends Component {
             </tr>
           )}
         </tbody>
-      </Table>
+      </table>
     )
   }
 };

@@ -1,0 +1,18 @@
+.details-view {
+
+}
+
+.details-view .details-view-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.details-view .details-view-title {
+  color: #7a7c84;
+  margin-left: 15px;
+}
+
+.details-view .details-view-value {
+
+}

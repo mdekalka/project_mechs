@@ -1,66 +1,70 @@
-import React from 'react';
-import {
-    FormGroup,
-    ControlLabel,
-    FormControl,
-    DropdownButton,
-    MenuItem
-} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { FormControl, DropdownButton, MenuItem } from 'react-bootstrap';
 
-const PilotDetailsEdit = ({ ranks, mechs, details: { name, age, gunnery, piloting } }) => {
-  return (
-    <form>
-      <FormGroup>
-        <ControlLabel>Name</ControlLabel>
-        <FormControl
-          type="text"
-          value={name}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Rank</ControlLabel>
-        {}
-        <div>
-          <DropdownButton bsStyle="default" title={ranks[0].text} id="dropdown-ranks" >
-            {ranks.map((rank, index) => 
-              <MenuItem key={index} eventKey={rank}>{rank.text}</MenuItem>
+import { RANKS , MECHS } from '../constants';
+
+class PilotDetailsEdit extends Component {
+  render() {
+    const { handleChange, selectChange, activePilot: { rank, mech, name, age, gunnery, piloting } } = this.props;
+
+    return (
+      <div className="details-view">
+        <div className="details-view-row title">
+          <FormControl
+            autoFocus
+            type="text"
+            value={name}
+            name="name"
+            onChange={handleChange}
+          />
+          <div className="details-view-title">[Name]</div>
+        </div>
+        <div className="details-view-row title">
+          <DropdownButton bsStyle="default" title={rank} id="dropdown-ranks" onSelect={selectChange}>
+            {RANKS.map((rankItem, index) => 
+              <MenuItem active={rank === rankItem.text} key={index} eventKey={rankItem}>{rankItem.text}</MenuItem>
             )}
           </DropdownButton>
+          <div className="details-view-title">[Rank]</div>
         </div>
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Age</ControlLabel>
-        <FormControl
-          type="text"
-          value={age}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Gunnery</ControlLabel>
-        <FormControl
-          type="text"
-          value={gunnery}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Piloting</ControlLabel>
-        <FormControl
-          type="text"
-          value={piloting}
-        />
-      </FormGroup>
-      <FormGroup>
-        <ControlLabel>Mech</ControlLabel>
-        <div>
-          <DropdownButton bsStyle="default" title={mechs[0].text} id="dropdown-mechs" >
-            {mechs.map((mech, index) => 
-              <MenuItem key={index} eventKey={mech}>{mech.text}</MenuItem>
+        <div className="details-view-row title">
+          <FormControl
+            type="text"
+            name="age"
+            value={age}
+            onChange={handleChange}
+          />
+          <div className="details-view-title">[Age]</div>
+        </div>
+        <div className="details-view-row title">
+          <FormControl
+            type="text"
+            name="gunnery"
+            value={gunnery}
+            onChange={handleChange}
+          />
+          <div className="details-view-title">[Gunnery]</div>
+        </div>
+        <div className="details-view-row title">
+          <FormControl
+            type="text"
+            name="piloting"
+            value={piloting}
+            onChange={handleChange}
+          />
+          <div className="details-view-title">[Piloting]</div>
+        </div>
+        <div className="details-view-row title">
+          <DropdownButton bsStyle="default" title={mech} name="mech" id="dropdown-mechs" onSelect={selectChange}>
+            {MECHS.map((mechItem, index) => 
+              <MenuItem active={mech === mechItem.text} key={index} eventKey={mechItem}>{mechItem.text}</MenuItem>
             )}
           </DropdownButton>
+          <div className="details-view-title">[Mech]</div>
         </div>
-      </FormGroup>
-    </form>
-  )
+      </div>
+    )
+  }
 };
 
 export default PilotDetailsEdit;
