@@ -15,11 +15,13 @@ const Icon = (props) => {
 };
 
 Icon.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  theme: PropTypes.string
 };
 
 Icon.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  theme: ''
 }
 
 export default Icon

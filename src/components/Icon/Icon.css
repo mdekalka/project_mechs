@@ -15,16 +15,32 @@
   background-color: #00ACC1;
 }
 
+.icon-container.accept:hover {
+  background-color: #14bdd2;
+}
+
 .icon-container.cancel {
   background-color: #F4511E;
+}
+
+.icon-container.cancel:hover {
+  background-color: #e86e48;
 }
 
 .icon-container.normal {
   background-color: #78909C;
 }
 
+.icon-container.normal:hover {
+  background-color: #839ca9;
+}
+
 .icon-container.warning {
   background-color: #F9A825;
+}
+
+.icon-container.warning:hover {
+  background-color: #efb860;
 }
 
 .icon-container > .fa {

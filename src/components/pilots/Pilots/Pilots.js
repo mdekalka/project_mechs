@@ -4,16 +4,14 @@ import { bindActionCreators } from 'redux';
 
 import PilotList from '../PilotList/PilotList';
 import PilotDetails from '../PilotDetails/PilotDetails';
-import FilterInput from '../../FilterInput/FilterInput';
+import FilterInputWithType from '../../FilterInputWithType/FilterInputWithType';
 
 import * as pilotsActions from '../actions';
-import { selectPilotList } from '../selectors';
-import { filterBy } from '../service';
+import { getFilter, getQuery, selectFilteredPilotList } from '../selectors';
 
 export class Pilots extends Component {
   state = {
-    activePilot: {},
-    query: ''
+    activePilot: {}
   }
 
   componentDidMount() {
@@ -23,16 +21,12 @@ export class Pilots extends Component {
   }
 
   selectPilot = (id) => {
-    this.props.actions.setActiveId(id);
-  }
-
-  onFilterChange = (event) => {
-    this.setState({ query: event.target.value });
+    if (this.props.activeId !== id) {
+      this.props.actions.setActiveId(id);
+    }
   }
 
   render() {
-    const filteredList = filterBy(this.props.pilots, 'name', this.state.query);
-
     return (
       <div className="container-fluid">
         <div className="row">
@@ -40,12 +34,12 @@ export class Pilots extends Component {
             <div className="row">
               <div className="col-md-4">
                 <div className="form-row">
-                  <FilterInput customClass="block" onChange={this.onFilterChange} placeholder="Filter by name" value={this.state.query} />
+                  <FilterInputWithType />
                 </div>
               </div>
             </div>
-            {filteredList.length ?
-                <PilotList selected={this.props.activeId} onSelect={this.selectPilot} list={filteredList} />
+            {this.props.pilots.length ?
+                <PilotList selected={this.props.activeId} onSelect={this.selectPilot} list={this.props.pilots} />
               : <div>No results based on filter query</div>
             }
           </div>
@@ -59,16 +53,18 @@ export class Pilots extends Component {
 };
 
 const mapStateToProps = (state) => {
-    return {
-      activeId: state.pilotsInfo.activeID,
-      pilots: selectPilotList(state)
-    }
+  return {
+    activeId: state.pilotsInfo.activeID,
+    pilots: selectFilteredPilotList(state),
+    filter: getFilter(state),
+    query: getQuery(state),
+  }
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators(pilotsActions, dispatch)
-    }
+  return {
+      actions: bindActionCreators(pilotsActions, dispatch)
+  }
 };
 
 Pilots = connect(mapStateToProps, mapDispatchToProps)(Pilots);

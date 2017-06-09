@@ -1,5 +1,3 @@
-import { sortBy } from 'lodash';
-
 export const filterBy = (list, prop, query) => {
   if (!list.length || !prop) {
     return list;

@@ -1,15 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FormControl, DropdownButton, MenuItem } from 'react-bootstrap';
+import ErrorTooltip from '../../ErrorTooltip/ErrorTooltip';
 
 import { RANKS , MECHS } from '../constants';
 
-class PilotDetailsEdit extends Component {
-  render() {
-    const { handleChange, selectChange, activePilot: { rank, mech, name, age, gunnery, piloting } } = this.props;
-
-    return (
-      <div className="details-view">
-        <div className="details-view-row title">
+const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { rank, mech, name, age, gunnery, piloting } }) => {
+  return (
+    <div className="details-view">
+      <div className="details-view-row title">
+        <div>
           <FormControl
             autoFocus
             type="text"
@@ -17,54 +16,76 @@ class PilotDetailsEdit extends Component {
             name="name"
             onChange={handleChange}
           />
-          <div className="details-view-title">[Name]</div>
+          {errors && errors.name ?
+            <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.name} icon="exclamation-triangle" />
+          : null
+          }
         </div>
-        <div className="details-view-row title">
-          <DropdownButton bsStyle="default" title={rank} id="dropdown-ranks" onSelect={selectChange}>
-            {RANKS.map((rankItem, index) => 
-              <MenuItem active={rank === rankItem.text} key={index} eventKey={rankItem}>{rankItem.text}</MenuItem>
-            )}
-          </DropdownButton>
-          <div className="details-view-title">[Rank]</div>
-        </div>
-        <div className="details-view-row title">
+        <div className="details-view-title">[*Name]</div>
+      </div>
+      <div className="details-view-row title">
+        <DropdownButton bsStyle="default" title={rank} id="dropdown-ranks" onSelect={selectChange}>
+          {RANKS.map((rankItem, index) => 
+            <MenuItem active={rank === rankItem.value} key={index} name="rank" eventKey={rankItem}>{rankItem.text}</MenuItem>
+          )}
+        </DropdownButton>
+        <div className="details-view-title">[*Rank]</div>
+      </div>
+      <div className="details-view-row title">
+        <div>
           <FormControl
             type="text"
             name="age"
             value={age}
             onChange={handleChange}
           />
-          <div className="details-view-title">[Age]</div>
+          {errors && errors.age ?
+            <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.age} icon="exclamation-triangle" />
+          : null
+          }
         </div>
-        <div className="details-view-row title">
+        <div className="details-view-title">[*Age]</div>
+      </div>
+      <div className="details-view-row title">
+        <div>
           <FormControl
             type="text"
             name="gunnery"
             value={gunnery}
             onChange={handleChange}
           />
-          <div className="details-view-title">[Gunnery]</div>
+          {errors && errors.gunnery ?
+            <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.gunnery} icon="exclamation-triangle" />
+          : null
+          }
         </div>
-        <div className="details-view-row title">
+        <div className="details-view-title">[*Gunnery]</div>
+      </div>
+      <div className="details-view-row title">
+        <div>
           <FormControl
             type="text"
             name="piloting"
             value={piloting}
             onChange={handleChange}
           />
-          <div className="details-view-title">[Piloting]</div>
+          {errors && errors.piloting ?
+            <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.piloting} icon="exclamation-triangle" />
+          : null
+          }
         </div>
-        <div className="details-view-row title">
-          <DropdownButton bsStyle="default" title={mech} name="mech" id="dropdown-mechs" onSelect={selectChange}>
-            {MECHS.map((mechItem, index) => 
-              <MenuItem active={mech === mechItem.text} key={index} eventKey={mechItem}>{mechItem.text}</MenuItem>
-            )}
-          </DropdownButton>
-          <div className="details-view-title">[Mech]</div>
-        </div>
+        <div className="details-view-title">[*Piloting]</div>
       </div>
-    )
-  }
+      <div className="details-view-row title">
+        <DropdownButton bsStyle="default" title={mech} name="mech" id="dropdown-mechs" onSelect={selectChange}>
+          {MECHS.map((mechItem, index) => 
+            <MenuItem active={mech === mechItem.text} key={index} name="mech" eventKey={mechItem}>{mechItem.text}</MenuItem>
+          )}
+        </DropdownButton>
+        <div className="details-view-title">[Mech]</div>
+      </div>
+    </div>
+  )
 };
 
 export default PilotDetailsEdit;

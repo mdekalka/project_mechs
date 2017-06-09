@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'react-bootstrap';
 
 import './PilotList.css';
 
 class PilotList extends Component {
   static propTypes = {
-    selected: PropTypes.number,
+    selected: PropTypes.string,
     list: PropTypes.array,
     onSelect: PropTypes.func
   };
@@ -18,7 +17,6 @@ class PilotList extends Component {
   };
 
   static PILOT_INFO = [
-    '#',
     'Name',
     'Rank',
     'Age',
@@ -40,7 +38,6 @@ class PilotList extends Component {
           {/* Yeah, we could send all pilot info manually, but imagine we have only id*/}
           {this.props.list.map(pilot =>
             <tr className={this.props.selected === pilot.id ? 'active-row': ''} key={pilot.id} onClick={() => this.props.onSelect(pilot.id)}>
-              <td>{pilot.id}</td>
               <td>{pilot.name}</td>
               <td>{pilot.rank}</td>
               <td>{pilot.age}</td>

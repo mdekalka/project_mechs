@@ -1,11 +1,14 @@
-.details-view {
-
-}
-
 .details-view .details-view-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+}
+
+.details-view .details-view-row .fa {
+  font-size: 14px;
+  margin-left: 15px;
+  cursor: pointer;
+  color: #F4511E;
 }
 
 .details-view .details-view-title {
@@ -13,6 +16,7 @@
   margin-left: 15px;
 }
 
-.details-view .details-view-value {
-
+/* Tooltip appends to body with unique id */
+#pilot-tooltip {
+  font-size: 14px;
 }

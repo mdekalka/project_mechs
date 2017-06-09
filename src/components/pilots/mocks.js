@@ -1,6 +1,8 @@
+import cuid from 'cuid';
+
 export const pilots = [
   {
-    id : 1,
+    id : '1',
     name : "Natasha Kerensky",
     rank : "Captain",
     gunnery : 2,
@@ -9,7 +11,7 @@ export const pilots = [
     mech : 'MAD-3R'
   },
   {
-    id : 2,
+    id : '2',
     name : "Colin Maclaren",
     rank : "Sergeant",
     gunnery : 3,
@@ -18,7 +20,7 @@ export const pilots = [
     mech : 'CRD-3R'
   },
   {
-    id : 3,
+    id : '3',
     name : "Lynn Sheridan",
     rank : "Corporal",
     gunnery : 4,
@@ -27,7 +29,7 @@ export const pilots = [
     mech : 'WSP-1A'
   },
   {
-    id : 4,
+    id : '4',
     name : "John Hayes",
     rank : "Sergeant",
     gunnery : 3,
@@ -36,7 +38,7 @@ export const pilots = [
     mech : 'WHM-6R'
   },
   {
-    id : 5,
+    id : '5',
     name : "Takiro Ikeda",
     rank : "Lieutenant",
     gunnery : 3,
@@ -45,7 +47,7 @@ export const pilots = [
     mech : 'MAD-3R'
   },
   {
-    id : 6,
+    id : '6',
     name : "Miklos Delius",
     rank : "Corporal",
     gunnery : 4,
@@ -54,7 +56,7 @@ export const pilots = [
     mech : 'CRD-3R'
   },
   {
-    id : 7,
+    id : '7',
     name : "Nikolai Koniev",
     rank : "Private",
     gunnery : 3,
@@ -63,7 +65,7 @@ export const pilots = [
     mech : 'GRF-1N'
   },
   {
-    id : 8,
+    id : '8',
     name : "Alex Ward",
     rank : "Corporal",
     gunnery : 4,
@@ -72,7 +74,7 @@ export const pilots = [
     mech : 'ARC-2R'
   },
   {
-    id : 9,
+    id : '9',
     name : "John Clavell",
     rank : "Lieutenant",
     gunnery : 3,
@@ -81,7 +83,7 @@ export const pilots = [
     mech : 'WSP-1A'
   },
   {
-    id : 10,
+    id : '10',
     name : "Piet Nichols",
     rank : "Corporal",
     gunnery : 4,
@@ -90,7 +92,7 @@ export const pilots = [
     mech : 'STG-3R'
   },
   {
-    id : 11,
+    id : '11',
     name : "Simon Fraser",
     rank : "Sergeant",
     gunnery : 3,
@@ -99,7 +101,7 @@ export const pilots = [
     mech : 'RFL-3N'
   },
   {
-    id : 12,
+    id : '12',
     name : "Mohammar Jahan",
     rank : "Corporal",
     gunnery : 3,
@@ -108,3 +110,24 @@ export const pilots = [
     mech : 'PXH-1K'
   }
 ];
+
+export const applyId = (collection) => {
+  if (!collection.length) {
+    return;
+  }
+
+  return collection.map(item => {
+    return { ...item, id: cuid() }
+  })
+};
+
+export const getPilots = () => {
+  const numberOfCopies = 5;
+  let finalList = pilots.slice();
+
+  for (let i = 0; i < numberOfCopies; i++) {
+    finalList = finalList.concat(applyId(pilots));
+  }
+
+  return finalList;
+}

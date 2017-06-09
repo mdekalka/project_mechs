@@ -15,6 +15,23 @@ const pilotsReducer = (state = initialState, action) => {
     case types.SET_ACTIVE_ID:
       return { ...state, activeID: action.id };
 
+    case types.UPDATE_PILOT_INFO:
+      return { 
+        ...state,
+        pilots: state.pilots.map(pilot => {
+          if (pilot.id === action.info.id) {
+            return { ...pilot, ...action.info }
+          } else {
+            return pilot;
+          }
+        })}
+
+    case types.REMOVE_PILOT:
+      return {
+        ...state,
+        pilots: state.pilots.filter(pilot => pilot.id !== action.id)
+      }
+
     default:
       return state;
   }

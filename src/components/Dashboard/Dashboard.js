@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Navigation from '../Navigation/Navigation';
 
-import { dashboardNavigation } from './DashboardService';
+import { dashboardNavigation } from './service';
 
 class Dashboard extends Component {
   render() {

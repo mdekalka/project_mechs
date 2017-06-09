@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-import { combineForms } from 'react-redux-form';
 
-import unitInfoReducer from '../components/UnitInfo/reducers';
 import pilotsReducer from '../components/pilots/reducers';
+import filterReducer from '../components/FilterInputWithType/reducers';
 
 const rootReducer = combineReducers({
-  unitInfo: unitInfoReducer,
-  pilotsInfo: pilotsReducer
+  pilotsInfo: pilotsReducer,
+  filterInfo: filterReducer
 });
 
 export default rootReducer;
