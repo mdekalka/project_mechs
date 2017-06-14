@@ -4,4 +4,12 @@ export const filterBy = (list, prop, query) => {
   }
 
   return list.filter(listItem => listItem[prop].toLowerCase().includes(query.toLowerCase()));
-}
+};
+
+export const sliceBy = (list, start = 0, end) => {
+  if (!list.length) {
+    return list;
+  }
+
+  return list.slice(start, end);
+};

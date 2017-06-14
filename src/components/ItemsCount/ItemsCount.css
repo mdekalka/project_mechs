@@ -1,0 +1,31 @@
+.items-count-container {
+  display: flex;
+  align-items: center;
+}
+
+.items-count-container .items-count-label {
+  margin-left: 25px;
+}
+
+.items-count-list .count-item {
+  display: inline-block;
+  font-size: 14px;
+  padding: 8px 20px;
+  border: 1px solid #56626b;
+  margin-left: -1px;
+  cursor: pointer;
+}
+
+.items-count-list .count-item:first-child {
+  margin-left: 0;
+}
+
+.items-count-list .count-item:hover {
+  background-color: #2c3135;
+}
+
+.items-count-list .count-item.active {
+  background-color: darkslategray;
+  color: #fff;
+}
+

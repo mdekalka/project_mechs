@@ -17,6 +17,7 @@ class PilotList extends Component {
   };
 
   static PILOT_INFO = [
+    '#',
     'Name',
     'Rank',
     'Age',
@@ -36,8 +37,9 @@ class PilotList extends Component {
         </thead>
         <tbody>
           {/* Yeah, we could send all pilot info manually, but imagine we have only id*/}
-          {this.props.list.map(pilot =>
+          {this.props.list.map((pilot, index) =>
             <tr className={this.props.selected === pilot.id ? 'active-row': ''} key={pilot.id} onClick={() => this.props.onSelect(pilot.id)}>
+              <td>{index + 1}</td>
               <td>{pilot.name}</td>
               <td>{pilot.rank}</td>
               <td>{pilot.age}</td>

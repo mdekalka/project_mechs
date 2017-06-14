@@ -43,7 +43,7 @@ export class PilotDetails extends Component {
   changeMode = (mode) => {
     this.setState({ mode });
   }
-
+  
   pilotUpdater = (key, value) => {
     if (!key) {
       return;

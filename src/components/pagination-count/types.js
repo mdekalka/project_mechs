@@ -1,0 +1,4 @@
+export default {
+  SET_ITEMS_COUNT: 'SET_ITEMS_COUNT',
+  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE'
+};
