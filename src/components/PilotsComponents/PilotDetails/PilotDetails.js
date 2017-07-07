@@ -21,7 +21,7 @@ export class PilotDetails extends Component {
     piloting: 'Piloting field cannot be empty'
   };
 
-  activePilotDefault = null;
+  // activePilotDefault = null;
 
   state = {
     mode: VIEW_MODE,
@@ -31,13 +31,13 @@ export class PilotDetails extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // TODO: Two state of truth. Relook this at refactoring-time
-    this.setState({ 
-      activePilot: props.activePilot,
+    this.setState({
+      // Set copy to local state for not hitting redux store on every pilot change
+      activePilot: { ...props.activePilot },
       errors: null,
       isInvalid: false
     });
-    this.activePilotDefault = { ...props.activePilot };
+    // this.activePilotDefault = { ...props.activePilot };
   }
 
   changeMode = (mode) => {
@@ -71,7 +71,6 @@ export class PilotDetails extends Component {
 
   closeEdit = () => {
     this.setState({ 
-      activePilot: this.activePilotDefault,
       isInvalid: false,
       errors: []
     });

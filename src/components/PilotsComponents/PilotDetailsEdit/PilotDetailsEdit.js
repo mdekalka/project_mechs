@@ -93,7 +93,7 @@ const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { r
 PilotDetailsEdit.propTypes = {
   handleChange: PropTypes.func,
   selectChange: PropTypes.func,
-  errors: PropTypes.array,
+  errors: PropTypes.object,
   activePilot: PropTypes.shape({
     name: PropTypes.string,
     rank: PropTypes.string,
