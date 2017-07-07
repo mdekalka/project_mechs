@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { filterBy, sliceBy } from './service';
 
-const getPilotList = state => state.pilotsInfo.pilots;
+const getPilots = state => state.pilotsInfo.pilots;
 
 const getActiveId = state => state.pilotsInfo.activeID;
 
@@ -12,13 +12,24 @@ const getQuery = state => state.filterInfo.query;
 
 const getPaginationInfo = state => state.filterInfo;
 
-const selectPilotList = createSelector([getPilotList, getFilter, getQuery], (pilotList, filter, query) => {
-  return filterBy(pilotList, filter, query);
+const getPilotsById = (ids, pilots) => {
+  return ids.map(id => pilots[id]);
+};
+
+const selectPilots = createSelector([getPilots, getFilter, getQuery], (pilots, filter, query) => {
+  const filteredIds = filterBy(pilots.byId, filter, query);
+
+  return {
+    filteredIds,
+    byId: pilots.byId
+  };
 });
 
-const selectPilotsSliced = createSelector([selectPilotList, getPaginationInfo], (pilotList, pageInfo) => {
+const selectPilotsSliced = createSelector([selectPilots, getPaginationInfo], (pilots, pageInfo) => {
   const startIndex = pageInfo.itemsCount * (pageInfo.activePage - 1);
   const endIndex = startIndex + pageInfo.itemsCount;
+
+  const pilotList = getPilotsById(pilots.filteredIds, pilots.byId);
 
   if (endIndex - startIndex >= pilotList.length) {
     return pilotList;
@@ -27,21 +38,24 @@ const selectPilotsSliced = createSelector([selectPilotList, getPaginationInfo], 
   }
 });
 
-const selectPageCount = createSelector([selectPilotList, getPaginationInfo], (pilotList, pageInfo) => {
-  return Math.ceil(pilotList.length / pageInfo.itemsCount);
+const selectPageCount = createSelector([selectPilots, getPaginationInfo], (pilots, pageInfo) => {
+  return Math.ceil(pilots.filteredIds.length / pageInfo.itemsCount);
 });
 
-const selectPilotById = createSelector([getPilotList, getActiveId], (pilotList, activeId) => {
-  return pilotList.find(pilot => pilot.id === activeId);
+const selectPilotById = createSelector([getPilots, getActiveId], (pilots, activeId) => {
+  if (!activeId) {
+    return null;
+  }
+
+  return pilots.byId[activeId];
 });
 
 export default {
-  getPilotList,
+  getPilots,
   getActiveId,
   getFilter,
   getQuery,
   getPaginationInfo,
-  selectPilotList,
   selectPilotsSliced,
   selectPageCount,
   selectPilotById

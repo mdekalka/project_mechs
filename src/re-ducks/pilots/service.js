@@ -1,14 +1,19 @@
+import { isEmpty } from 'lodash';
+
 export const filterBy = (list, prop, query) => {
-  if (!list.length || !prop) {
-    return list;
+  if (isEmpty(list) || !prop) {
+    return [];
   }
 
-  return list.filter(listItem => listItem[prop].toLowerCase().includes(query.toLowerCase()));
+  return Object.keys(list).filter((listItem) => {
+    const seachField = list[listItem][prop].toLowerCase();
+    return seachField.includes(query.toLowerCase())
+  });
 };
 
 export const sliceBy = (list, start = 0, end) => {
   if (!list.length) {
-    return list;
+    return [];
   }
 
   return list.slice(start, end);

@@ -1,6 +1,7 @@
 import types from './types';
 
-import { getPilots } from './mocks';
+import pilotsMocks from './mocks';
+import normalizePilots from './schema';
 
 const loadPilotsSuccess = (data) => {
   return {
@@ -31,8 +32,12 @@ const removePilot = (id) => {
 };
 
 const loadPilots = () => (dispatch, getState) => {
-  return Promise.resolve(getPilots())
-    .then(data => dispatch(loadPilotsSuccess(data)))
+  return Promise.resolve(pilotsMocks.getPilots())
+    .then(data => {
+      const normalizeData = normalizePilots(data);
+
+      dispatch(loadPilotsSuccess(normalizeData))
+    })
 }
 
 export default {

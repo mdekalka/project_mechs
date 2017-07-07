@@ -111,7 +111,7 @@ export const pilots = [
   }
 ];
 
-export const applyId = (collection) => {
+const applyId = (collection) => {
   if (!collection.length) {
     return;
   }
@@ -121,7 +121,7 @@ export const applyId = (collection) => {
   })
 };
 
-export const getPilots = () => {
+const getPilots = () => {
   const numberOfCopies = 5;
   let finalList = pilots.slice();
 
@@ -131,3 +131,8 @@ export const getPilots = () => {
 
   return finalList;
 }
+
+export default {
+  applyId,
+  getPilots
+};

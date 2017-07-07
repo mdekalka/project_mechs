@@ -21,8 +21,6 @@ export class PilotDetails extends Component {
     piloting: 'Piloting field cannot be empty'
   };
 
-  // activePilotDefault = null;
-
   state = {
     mode: VIEW_MODE,
     activePilot: null,
@@ -37,7 +35,6 @@ export class PilotDetails extends Component {
       errors: null,
       isInvalid: false
     });
-    // this.activePilotDefault = { ...props.activePilot };
   }
 
   changeMode = (mode) => {
