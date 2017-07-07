@@ -68,6 +68,7 @@ class Pagination extends Component {
       if (end > pageCount) {
         start -= end - pageCount;
       }
+      // TODO: refactor this
 
       if (activePage - left > 0 && start > Pagination.FIRST_PAGE) {
         pageList.push(<PageItem key="el-left" content="..." customClass="page-ellipsis" />);
@@ -94,7 +95,6 @@ class Pagination extends Component {
   render() {
     return (
       <div className={`pagination-container ${this.props.customClass}`}>
-        {/* TODO: Refactor list items to separate method*/}
         <ul className="pagination-list">
           <PageItem content="«" customClass="page-start" onClick={this.onPageSelect}  pageIndex={Pagination.FIRST_PAGE} />
           <PageItem content="‹" customClass="page-prev" onClick={this.onPageSelect}  pageIndex={this.validatePrevNext(this.props.activePage - 1)} />

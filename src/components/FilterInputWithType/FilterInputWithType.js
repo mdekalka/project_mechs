@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Radio } from 'react-bootstrap';
 import enhanceWithClickOutside from 'react-click-outside';
 import FontAwesome from 'react-fontawesome';
 
+import FilterPanel from '../FilterPanel/FilterPanel';
 import FilterInput from '../FilterInput/FilterInput';
 
-import * as filterActions from './actions';
+import { inputFiltersActions } from '../../re-ducks/inputFilters';
 
 import './FilterInputWithType.css';
 
@@ -17,12 +17,11 @@ export class FilterInputWithType extends Component {
     { name: 'by Rank', value: 'rank' },
     { name: 'by Mech', value: 'mech' }
   ];
-
   static PLACEHOLDER = 'Filter by';
 
   state = {
     isOpen: false
-  }
+  };
 
   togglePanel = () => {
     this.setState(prevState => {
@@ -55,26 +54,7 @@ export class FilterInputWithType extends Component {
         <div className={`filter-types pointer ${this.state.isOpen ? 'open': ''}`} onClick={this.togglePanel} >
           <FontAwesome name="bars" />
         </div>
-        {this.state.isOpen ? 
-          <div className="types-panel">
-            <ul className="types-list">
-              {FilterInputWithType.FILTER_TYPES.map((filter, index) =>
-                <li className="types-item" key={index} >
-                  <Radio
-                    checked={this.props.filter === filter.value}
-                    name="radioGroup"
-                    className="types-radio"
-                    value={filter.value}
-                    onChange={this.onTypeChange}
-                  >
-                  {filter.name}
-                  </Radio>
-                </li>
-              )}
-            </ul>
-          </div>
-        : null
-        }
+        {this.state.isOpen ? <FilterPanel types={FilterInputWithType.FILTER_TYPES} onTypeChange={this.onTypeChange} filter={this.props.filter} /> : null}
       </div>
     )
   }
@@ -89,7 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(filterActions, dispatch)
+    actions: bindActionCreators(inputFiltersActions, dispatch)
   }
 };
 

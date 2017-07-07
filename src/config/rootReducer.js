@@ -1,13 +1,12 @@
 import { combineReducers } from 'redux';
 
-import pilotsReducer from '../components/pilots/reducers';
-import filterReducer from '../components/FilterInputWithType/reducers';
-import pilotPaginationReducer from '../components/pagination-count/reducers';
+// import pilotsReducer from '../re-ducks/';
+// import filterReducer from '../components/FilterInputWithType/reducers';
+import * as reducers from '../re-ducks';
 
 const rootReducer = combineReducers({
-  pilotsInfo: pilotsReducer,
-  filterInfo: filterReducer,
-  paginationInfo: pilotPaginationReducer
+  pilotsInfo: reducers.pilotsState,
+  filterInfo: reducers.inputFiltersState
 });
 
 export default rootReducer;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const Navigation = ({ customClass, list }) => {
@@ -9,6 +10,16 @@ const Navigation = ({ customClass, list }) => {
       )}
     </ul>
   )
+};
+
+Navigation.propTypes = {
+  list: PropTypes.array,
+  customClass: PropTypes.string
+};
+
+Navigation.defaultProps = {
+  list: [],
+  customClass: ''
 };
 
 export default Navigation;

@@ -1,4 +1,4 @@
-export const RANKS = [
+const RANKS = [
   { value: 'Private', text: 'Private' },
   { value: 'Corporal', text: 'Corporal' },
   { value: 'Sergeant', text: 'Sergeant' },
@@ -8,7 +8,7 @@ export const RANKS = [
   { value: 'Colonel', text: 'Colonel' },
 ];
 
-export const MECHS = [
+const MECHS = [
   { value: 'WHM-6R', text: 'WHM-6R' },
   { value: 'MAD-3R', text: 'MAD-3R' },
   { value: 'CRD-3R', text: 'CRD-3R' },
@@ -20,8 +20,14 @@ export const MECHS = [
   { value: 'PXH-1K', text: 'PXH-1K' },
 ];
 
-export const ITEMS_COUNT = [
+const ITEMS_COUNT = [
   { id: 1, value: 10 },
   { id: 2, value: 15 },
   { id: 3, value: 20 }
 ];
+
+export default {
+  RANKS,
+  MECHS,
+  ITEMS_COUNT
+}

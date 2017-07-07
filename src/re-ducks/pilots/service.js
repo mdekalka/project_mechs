@@ -13,3 +13,5 @@ export const sliceBy = (list, start = 0, end) => {
 
   return list.slice(start, end);
 };
+
+export const getPageCount = (listLength, itemsCount) => Math.ceil(listLength / itemsCount);

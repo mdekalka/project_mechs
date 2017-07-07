@@ -7,8 +7,8 @@ import PilotDetailsEdit from '../PilotDetailsEdit/PilotDetailsEdit';
 import Icon from '../../Icon/Icon';
 
 import { isEmptyPrimitive } from '../../../utils/utils';
-import { updatePilotInfo, removePilot } from '../actions';
-import { selectPilotById } from '../selectors';
+import { pilotsActions } from '../../../re-ducks/pilots';
+import { pilotsSelectors } from '../../../re-ducks/pilots';
 import { EDIT_MODE, VIEW_MODE } from '../../../constants/constants';
 
 import './PilotsDetails.css';
@@ -31,13 +31,13 @@ export class PilotDetails extends Component {
   }
 
   componentWillReceiveProps(props) {
-    // Wow. Are you brave enough to do this?
+    // TODO: Two state of truth. Relook this at refactoring-time
     this.setState({ 
       activePilot: props.activePilot,
       errors: null,
       isInvalid: false
     });
-    this.activePilotDefault = Object.assign({}, props.activePilot);
+    this.activePilotDefault = { ...props.activePilot };
   }
 
   changeMode = (mode) => {
@@ -48,8 +48,6 @@ export class PilotDetails extends Component {
     if (!key) {
       return;
     }
-
-    // TODO: compare origin model to new one
 
     this.setState(prevState => {
       return {
@@ -156,13 +154,13 @@ export class PilotDetails extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    activePilot: selectPilotById(state)
+    activePilot: pilotsSelectors.selectPilotById(state)
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({ updatePilotInfo, removePilot }, dispatch)
+    actions: bindActionCreators({ updatePilotInfo: pilotsActions.updatePilotInfo, removePilot: pilotsActions.removePilot }, dispatch)
   }
 };
 

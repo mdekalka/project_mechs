@@ -1,20 +1,15 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
 
-import Navigation from '../Navigation/Navigation';
+import Pilots from '../PilotsComponents/Pilots/Pilots';
 
-import { dashboardNavigation } from './service';
+import './Dashboard.css';
 
 class Dashboard extends Component {
   render() {
     return (
       <div className="dashboard-container">
-        <Navigation customClass="dashboard-nav" list={dashboardNavigation} />
-        <Switch>
-          {dashboardNavigation.map(navItem =>
-            <Route key={navItem.id} path={navItem.route} component={navItem.component} />
-          )}
-        </Switch>
+        <h3 className="dashboard-header text-center">React/Redux app</h3>
+        <Pilots />
       </div>
     )
   }

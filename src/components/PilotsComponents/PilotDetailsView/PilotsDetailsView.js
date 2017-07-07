@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './PilotsDetailsView.css';
 
@@ -31,6 +32,24 @@ const PilotsDetailsView = ({ name, rank, age, gunnery, piloting, mech }) => {
       </div>
     </div>
   )
+};
+
+PilotsDetailsView.propTypes = {
+  name: PropTypes.string,
+  rank: PropTypes.string,
+  age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  gunnery: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  piloting: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  mech: PropTypes.string
+};
+
+PilotsDetailsView.defaultProps = {
+  name: '',
+  rank: '',
+  age: '',
+  gunnery: '',
+  piloting: '',
+  mech: ''
 };
 
 export default PilotsDetailsView;

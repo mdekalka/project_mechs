@@ -8,11 +8,8 @@ import FilterInputWithType from '../../FilterInputWithType/FilterInputWithType';
 import Pagination from '../../Pagination/Pagination';
 import ItemsCount from '../../ItemsCount/ItemsCount';
 
-import * as pilotsActions from '../actions';
-import * as paginationActions from '../../pagination-count/actions';
-import { getFilter, getQuery, selectPilotList, selectPageCount } from '../selectors';
-import { ITEMS_COUNT } from '../constants';
-import { sliceBy } from '../service';
+import { pilotsConstants, pilotsActions, pilotsSelectors } from '../../../re-ducks/pilots';
+import { inputFiltersActions } from '../../../re-ducks/inputFilters';
 
 export class Pilots extends Component {
   state = {
@@ -20,9 +17,7 @@ export class Pilots extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.loadPilots(() => {
-      // Note: info loaded, do some magic if you want to
-    });
+    this.props.actions.loadPilots();
   }
 
   selectPilot = (id) => {
@@ -51,7 +46,7 @@ export class Pilots extends Component {
                 </div>
               </div>
             </div>
-            <ItemsCount count={ITEMS_COUNT} label="Items on page" activeValue={this.props.itemsCount} onSelect={this.selectItemsCount} />
+            <ItemsCount count={pilotsConstants.ITEMS_COUNT} label="Items on page" activeValue={this.props.itemsCount} onSelect={this.selectItemsCount} />
             <Pagination activePage={this.props.activePage} onSelect={this.selectPage} pageCount={this.props.pageCount} />
             {this.props.pilots.length
               ? <PilotList selected={this.props.activeId} onSelect={this.selectPilot} list={this.props.pilots} />
@@ -69,19 +64,19 @@ export class Pilots extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    itemsCount: state.paginationInfo.itemsCount,
-    activePage: state.paginationInfo.activePage,
+    itemsCount: state.filterInfo.itemsCount,
+    activePage: state.filterInfo.activePage,
     activeId: state.pilotsInfo.activeID,
-    pilots: selectPilotList(state),
-    filter: getFilter(state),
-    query: getQuery(state),
-    pageCount: selectPageCount(state)
+    pilots: pilotsSelectors.selectPilotsSliced(state),
+    filter: pilotsSelectors.getFilter(state),
+    query: pilotsSelectors.getQuery(state),
+    pageCount: pilotsSelectors.selectPageCount(state)
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      actions: bindActionCreators({ ...pilotsActions, ...paginationActions }, dispatch)
+      actions: bindActionCreators({ ...pilotsActions, ...inputFiltersActions }, dispatch)
   }
 };
 

@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormControl, DropdownButton, MenuItem } from 'react-bootstrap';
+
 import ErrorTooltip from '../../ErrorTooltip/ErrorTooltip';
 
-import { RANKS , MECHS } from '../constants';
+import { pilotsConstants } from '../../../re-ducks/pilots';
 
 const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { rank, mech, name, age, gunnery, piloting } }) => {
   return (
@@ -16,8 +18,8 @@ const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { r
             name="name"
             onChange={handleChange}
           />
-          {errors && errors.name ?
-            <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.name} icon="exclamation-triangle" />
+          {errors && errors.name
+          ? <ErrorTooltip id="pilot-tooltip" placement="top" tooltip={errors.name} icon="exclamation-triangle" />
           : null
           }
         </div>
@@ -25,7 +27,7 @@ const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { r
       </div>
       <div className="details-view-row title">
         <DropdownButton bsStyle="default" title={rank} id="dropdown-ranks" onSelect={selectChange}>
-          {RANKS.map((rankItem, index) => 
+          {pilotsConstants.RANKS.map((rankItem, index) => 
             <MenuItem active={rank === rankItem.value} key={index} name="rank" eventKey={rankItem}>{rankItem.text}</MenuItem>
           )}
         </DropdownButton>
@@ -78,7 +80,7 @@ const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { r
       </div>
       <div className="details-view-row title">
         <DropdownButton bsStyle="default" title={mech} name="mech" id="dropdown-mechs" onSelect={selectChange}>
-          {MECHS.map((mechItem, index) => 
+          {pilotsConstants.MECHS.map((mechItem, index) => 
             <MenuItem active={mech === mechItem.text} key={index} name="mech" eventKey={mechItem}>{mechItem.text}</MenuItem>
           )}
         </DropdownButton>
@@ -86,6 +88,34 @@ const PilotDetailsEdit = ({ handleChange, selectChange, errors, activePilot: { r
       </div>
     </div>
   )
+};
+
+PilotDetailsEdit.propTypes = {
+  handleChange: PropTypes.func,
+  selectChange: PropTypes.func,
+  errors: PropTypes.array,
+  activePilot: PropTypes.shape({
+    name: PropTypes.string,
+    rank: PropTypes.string,
+    age: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    gunnery: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    piloting: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    mech: PropTypes.string
+  })
+};
+
+PilotDetailsEdit.defaultProps = {
+  handleChange: () => {},
+  selectChange: () => {},
+  errors: null,
+  activePilot: {
+    name: '',
+    rank: '',
+    age: '',
+    gunnery: '',
+    piloting: '',
+    mech: ''
+  }
 };
 
 export default PilotDetailsEdit;
