@@ -24,6 +24,7 @@ const FilterPanel = ({ types, onTypeChange, filter }) => {
   )
 };
 
+
 FilterPanel.propTypes = {
   types: PropTypes.array,
   onTypeChange: PropTypes.func,

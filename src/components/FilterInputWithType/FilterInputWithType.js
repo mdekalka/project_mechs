@@ -8,15 +8,11 @@ import FilterPanel from '../FilterPanel/FilterPanel';
 import FilterInput from '../FilterInput/FilterInput';
 
 import { inputFiltersActions } from '../../re-ducks/inputFilters';
+import { FILTER_TYPES } from '../../constants/constants'
 
 import './FilterInputWithType.css';
 
 export class FilterInputWithType extends Component {
-  static FILTER_TYPES = [
-    { name: 'by Name', value: 'name' },
-    { name: 'by Rank', value: 'rank' },
-    { name: 'by Mech', value: 'mech' }
-  ];
   static PLACEHOLDER = 'Filter by';
 
   state = {
@@ -44,7 +40,7 @@ export class FilterInputWithType extends Component {
   onQueryChange = (event) => {
     this.props.actions.updateSearchQuery(event.target.value);
   }
-  
+
   render() {
     const filterMessage = `${FilterInputWithType.PLACEHOLDER} ${this.props.filter}`;
 
@@ -54,7 +50,7 @@ export class FilterInputWithType extends Component {
         <div className={`filter-types pointer ${this.state.isOpen ? 'open': ''}`} onClick={this.togglePanel} >
           <FontAwesome name="bars" />
         </div>
-        {this.state.isOpen ? <FilterPanel types={FilterInputWithType.FILTER_TYPES} onTypeChange={this.onTypeChange} filter={this.props.filter} /> : null}
+        {this.state.isOpen ? <FilterPanel types={FILTER_TYPES} onTypeChange={this.onTypeChange} filter={this.props.filter} /> : null}
       </div>
     )
   }

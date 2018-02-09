@@ -1,14 +1,13 @@
 import types from './types';
 
 import { pilotsConstants } from '../pilots';
-
-const START_PAGE = 1;
+import { FILTER_TYPES } from '../../constants/constants';
 
 const initialState = {
-  filter: 'name',
+  filter: FILTER_TYPES[0].value,
   query: '',
   itemsCount: pilotsConstants.ITEMS_COUNT[0].value,
-  activePage: START_PAGE
+  activePage: 1
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -17,10 +16,10 @@ const filterReducer = (state = initialState, action) => {
       return { ...state, filter: action.filter };
 
     case types.UPDATE_SEARCH_QUERY:
-      return { ...state, activePage: START_PAGE, query: action.query };
+      return { ...state, query: action.query };
 
     case types.SET_ITEMS_COUNT:
-      return { ...state, activePage: START_PAGE, itemsCount: action.count };
+      return { ...state, itemsCount: action.count };
 
     case types.SET_CURRENT_PAGE:
       return { ...state, activePage: action.page };

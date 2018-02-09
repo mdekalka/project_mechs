@@ -121,11 +121,11 @@ const applyId = (collection) => {
   })
 };
 
-const getPilots = () => {
-  const numberOfCopies = 5;
+const getPilots = (copies) => {
+  copies = copies || 5;
   let finalList = pilots.slice();
 
-  for (let i = 0; i < numberOfCopies; i++) {
+  for (let i = 0; i < copies; i++) {
     finalList = finalList.concat(applyId(pilots));
   }
 

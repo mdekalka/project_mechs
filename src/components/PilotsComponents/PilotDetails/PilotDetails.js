@@ -6,7 +6,6 @@ import PilotsDetailsView from '../PilotDetailsView/PilotsDetailsView';
 import PilotDetailsEdit from '../PilotDetailsEdit/PilotDetailsEdit';
 import Icon from '../../Icon/Icon';
 
-import { isEmptyPrimitive } from '../../../utils/utils';
 import { pilotsActions } from '../../../re-ducks/pilots';
 import { pilotsSelectors } from '../../../re-ducks/pilots';
 import { EDIT_MODE, VIEW_MODE } from '../../../constants/constants';
@@ -14,11 +13,12 @@ import { EDIT_MODE, VIEW_MODE } from '../../../constants/constants';
 import './PilotsDetails.css';
 
 export class PilotDetails extends Component {
+  static errorPattern = (field) => `${field} cannot be empty`;
   static ERRORS_MSG = {
-    name: 'Name field cannot be empty',
-    age: 'Age field cannot be empty',
-    gunnery: 'Gunnery field cannot be empty',
-    piloting: 'Piloting field cannot be empty'
+    name: PilotDetails.errorPattern('Name'),
+    age: PilotDetails.errorPattern('Age'),
+    gunnery: PilotDetails.errorPattern('Gunnery'),
+    piloting: PilotDetails.errorPattern('Piloting')
   };
 
   state = {
@@ -40,7 +40,7 @@ export class PilotDetails extends Component {
   changeMode = (mode) => {
     this.setState({ mode });
   }
-  
+
   pilotUpdater = (key, value) => {
     if (!key) {
       return;
@@ -67,9 +67,10 @@ export class PilotDetails extends Component {
   }
 
   closeEdit = () => {
-    this.setState({ 
+    this.setState({
       isInvalid: false,
-      errors: []
+      errors: null,
+      activePilot: { ...this.props.activePilot }
     });
 
     this.changeMode(VIEW_MODE);
@@ -97,7 +98,7 @@ export class PilotDetails extends Component {
 
     for (const key in activePilot) {
       if (PilotDetails.ERRORS_MSG[key]) {
-        if (isEmptyPrimitive(activePilot[key])) {
+        if (!activePilot[key]) {
           ERRORS = ERRORS ? ERRORS : {};
 
           ERRORS[key] = PilotDetails.ERRORS_MSG[key]
@@ -132,7 +133,7 @@ export class PilotDetails extends Component {
             <div className="pilots-content">
               {this.state.mode === VIEW_MODE ?
                 <PilotsDetailsView {...this.state.activePilot} />
-              : <PilotDetailsEdit 
+              : <PilotDetailsEdit
                   errors={this.state.errors}
                   handleChange={this.handleChange}
                   selectChange={this.selectChange}

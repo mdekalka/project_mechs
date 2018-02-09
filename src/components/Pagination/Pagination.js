@@ -68,8 +68,7 @@ class Pagination extends Component {
       if (end > pageCount) {
         start -= end - pageCount;
       }
-      // TODO: refactor this
-
+      // TODO: refactor this later
       if (activePage - left > 0 && start > Pagination.FIRST_PAGE) {
         pageList.push(<PageItem key="el-left" content="..." customClass="page-ellipsis" />);
       }

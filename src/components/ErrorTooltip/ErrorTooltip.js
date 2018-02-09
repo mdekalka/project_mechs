@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cuid from 'cuid';
 import FontAwesome from 'react-fontawesome';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
@@ -12,7 +13,7 @@ class ErrorTooltip extends Component {
   };
   static defaultProps = {
     icon: '',
-    id: '1',
+    id: cuid(),
     placement: 'top',
     tooltip: ''
   };
